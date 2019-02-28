@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Checker</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style type="text/css">
+    body{
+      background-color: orange;
+    }
+    .container{
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="custom-file file-container">
+    <input type="file" id="upload-image" class="custom-file-input" placeholder="upload-image"/>
+    <label class="custom-file-label" for="customFile">Check Image Size</label>
+  </div>
+</div>
+
+  <script type="text/javascript">
+    var image = document.getElementById("upload-image");
+    image.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+       var envUrl = window.URL || window.webkitURL;
+      if ( file.type.match(/image/) ) { 
+        let img = new Image();
+        img.onload = function(e) {
+            const imageWidth = e.target.width;
+            if(imageWidth === 600) alert("image is of correct width 600px")
+            else if(imageWidth < 600) alert(" image less than 600px upload another image")
+            else alert("Image is greater than 600px, crop it!")
+        }
+        img.src = envUrl.createObjectURL(file);
+      }
+      else alert("Not an image")
+  });
+  </script>
+</body>
+</html>
